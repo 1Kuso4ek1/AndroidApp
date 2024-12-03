@@ -26,6 +26,6 @@ data class Lesson(
 )
 
 interface Schedule {
-    @GET("/v3/c239fcfa-cf45-404e-8856-f527e3b06914/table")
+    @GET("/v3/5bdb1e70-80a7-41bc-b1d1-77aee4eee001")
     fun get(): Call<ScheduleResponse>
 }
