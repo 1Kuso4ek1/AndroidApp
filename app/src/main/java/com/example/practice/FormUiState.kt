@@ -15,7 +15,7 @@ data class FormUiState(
                             .addConverterFactory(GsonConverterFactory.create())
                             .build(),
 
-    var selectedDate: LocalDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 20)),
+    var selectedDate: LocalDateTime = LocalDateTime.now(),
     val api: Schedule? = retrofit.create(Schedule::class.java),
     var response: ScheduleResponse? = null,
 
