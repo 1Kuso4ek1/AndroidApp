@@ -12,6 +12,8 @@ data class ScheduleResponse(
 )
 
 data class DailySchedule(
+    @SerializedName("firstLesson")
+    val firstLesson: Int,
     @SerializedName("day")
     val day: String,
     @SerializedName("lessons")
@@ -26,6 +28,6 @@ data class Lesson(
 )
 
 interface Schedule {
-    @GET("/v3/5bdb1e70-80a7-41bc-b1d1-77aee4eee001")
+    @GET("/v3/2e70290c-b2a5-43c9-b672-8221136b938a")
     fun get(): Call<ScheduleResponse>
 }

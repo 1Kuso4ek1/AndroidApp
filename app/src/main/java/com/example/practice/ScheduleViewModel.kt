@@ -50,6 +50,7 @@ class ScheduleViewModel : ViewModel() {
     }
 
     private fun makeRequest() {
+        formUiState = formUiState.copy(response = null)
         formUiState.api?.get()?.enqueue(object : Callback<ScheduleResponse> {
             override fun onResponse(call: Call<ScheduleResponse>, response: Response<ScheduleResponse>) {
                 if(response.isSuccessful) {
