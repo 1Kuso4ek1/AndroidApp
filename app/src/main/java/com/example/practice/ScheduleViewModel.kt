@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ScheduleViewModel : ViewModel() {
     var formUiState by mutableStateOf(FormUiState())
@@ -27,7 +29,10 @@ class ScheduleViewModel : ViewModel() {
                 //formEvent.navController.navigate(OrderSucceeded("${formUiState.name} - ${formUiState.phone}"))
             }
             is FormUiEvent.OnDateChange -> {
-                formUiState = formUiState.copy(selectedDate = formEvent.date)
+                var dateTime = formEvent.date
+                if(dateTime.toLocalDate() == LocalDate.now())
+                    dateTime = LocalDateTime.now()
+                formUiState = formUiState.copy(selectedDate = dateTime)
                 makeRequest()
             }
             is FormUiEvent.OnApplicationContextChange -> {

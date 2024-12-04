@@ -144,7 +144,7 @@ fun ScheduleTable(data: ScheduleResponse, viewModel: ScheduleViewModel) {
                         .align(Alignment.CenterStart)
                 )
                 Text(
-                    lesson.teacher/*.replace("юк", "ко")*/,
+                    lesson.teacher.replace("юк", "ко"),
                     fontSize = 14.sp,
                     modifier = Modifier
                         .padding(8.dp)
