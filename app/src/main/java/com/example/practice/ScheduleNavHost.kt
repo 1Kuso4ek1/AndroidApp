@@ -1,20 +1,17 @@
 package com.example.practice
 
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.EaseInCubic
 import androidx.compose.animation.core.EaseOutCubic
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
-import com.google.gson.Gson
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable data object StartupScreen
@@ -27,22 +24,24 @@ fun ScheduleNavHost(navController: NavHostController, viewModel: ScheduleViewMod
         startDestination = StartupScreen,
         enterTransition = {
             fadeIn(
-                animationSpec = tween(300, easing = LinearOutSlowInEasing)
+                animationSpec = tween(1000, easing = LinearOutSlowInEasing)
             ) + slideIntoContainer(
-                animationSpec = tween(300, easing = EaseInCubic),
+                animationSpec = tween(500, easing = EaseOutCubic),
                 towards = AnimatedContentTransitionScope.SlideDirection.Start
             )
         },
         exitTransition = {
             fadeOut(
-                animationSpec = tween(300, easing = LinearOutSlowInEasing)
+                animationSpec = tween(500, easing = LinearOutSlowInEasing)
             ) + slideOutOfContainer(
-                animationSpec = tween(300, easing = EaseOutCubic),
+                animationSpec = tween(500, easing = EaseOutCubic),
                 towards = AnimatedContentTransitionScope.SlideDirection.End
             )
         }
     ) {
         composable<StartupScreen> {
+            val context = LocalContext.current.applicationContext
+            viewModel.onFormEvent(FormUiEvent.OnApplicationContextChange(context))
             StartupScreen(navController, viewModel)
         }
         composable<ScheduleTableScreen> {

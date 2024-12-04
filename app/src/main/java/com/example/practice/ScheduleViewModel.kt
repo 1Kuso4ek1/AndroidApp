@@ -1,5 +1,7 @@
 package com.example.practice
 
+import android.content.Context
+import android.preference.PreferenceManager
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,13 +20,26 @@ class ScheduleViewModel : ViewModel() {
                 formUiState = formUiState.copy(group = formEvent.group.uppercase())
             }
             is FormUiEvent.ViewScheduleClicked -> {
+                saveSharedPreferences()
                 makeRequest()
+
                 formEvent.navController.navigate(ScheduleTableScreen)
                 //formEvent.navController.navigate(OrderSucceeded("${formUiState.name} - ${formUiState.phone}"))
             }
             is FormUiEvent.OnDateChange -> {
                 formUiState = formUiState.copy(selectedDate = formEvent.date)
                 makeRequest()
+            }
+            is FormUiEvent.OnApplicationContextChange -> {
+                if(formUiState.sharedPreferences == null) {
+                    formUiState = formUiState.copy(
+                        sharedPreferences = formEvent.applicationContext.getSharedPreferences(
+                            "sharedPreferences",
+                            Context.MODE_PRIVATE
+                        )
+                    )
+                    loadSharedPreferences()
+                }
             }
         }
     }
@@ -42,5 +57,22 @@ class ScheduleViewModel : ViewModel() {
                 //formEvent.navController.navigate(ScheduleTableScreen(response.body()!!))
             }
         })
+    }
+
+    private fun saveSharedPreferences() {
+        val prefs = formUiState.sharedPreferences
+        if(prefs != null) {
+            val editor = prefs.edit()
+            editor.putString("group", formUiState.group)
+
+            editor.apply()
+        }
+    }
+
+    private fun loadSharedPreferences() {
+        val prefs = formUiState.sharedPreferences
+        if (prefs != null) {
+            formUiState = prefs.getString("group", "")?.let { formUiState.copy(group = it) }!!
+        }
     }
 }

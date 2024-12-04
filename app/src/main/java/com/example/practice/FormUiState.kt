@@ -1,5 +1,7 @@
 package com.example.practice
 
+import android.content.Context
+import android.content.SharedPreferences
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDate
@@ -16,6 +18,8 @@ data class FormUiState(
     var selectedDate: LocalDateTime = LocalDateTime.now(),
     val api: Schedule? = retrofit.create(Schedule::class.java),
     var response: ScheduleResponse? = null,
+
+    val sharedPreferences: SharedPreferences? = null,
 
     val timetable: List<LocalDateTime> = listOf(
         LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 30)),

@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 //@Preview(showBackground = true)
 @Composable
 fun StartupScreen(navController: NavController, viewModel: ScheduleViewModel = viewModel()) {
-    ContactInformation(
+    ScheduleStartupScreen(
         group = viewModel.formUiState.group,
         onGroupChange = { viewModel.onFormEvent(FormUiEvent.OnGroupChange(it)) },
         fetchSchedule = { viewModel.onFormEvent(FormUiEvent.ViewScheduleClicked(navController)) },
@@ -27,7 +27,7 @@ fun StartupScreen(navController: NavController, viewModel: ScheduleViewModel = v
 }
 
 @Composable
-fun ContactInformation(
+fun ScheduleStartupScreen(
     group: String,
     onGroupChange: (String) -> Unit,
     fetchSchedule: () -> Unit,

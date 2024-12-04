@@ -9,11 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.practice.ui.theme.PracticeTheme
 
 class MainActivity : ComponentActivity() {
-    private val data = mutableStateOf("")
+    private val savedGroupName = mutableStateOf("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PracticeTheme {
                 val navController = rememberNavController()
+
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     ScheduleNavHost(navController)
                 }
